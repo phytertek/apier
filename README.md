@@ -13,8 +13,8 @@
 >> Components are composed of:
 >> * routes (exported, declared in global app)
 >> * controller (route controllers)
->> * services (exported, component methods)
->> * schema (exported, declared in the global schema)
+>> * services (exported, declared in global app)
+>> * schema (exported, declared in the global app)
 >> * utils (methods used internally by the component)
 >> * tests
 ***
