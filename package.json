@@ -1,0 +1,21 @@
+{
+  "name": "apier",
+  "version": "0.1.0",
+  "description": "declarative api",
+  "main": "startup.js",
+  "scripts": {
+    "start:devdb": "mongod --dbpath data",
+    "start:dev": "nodemon app/index.js"
+  },
+  "keywords": ["api", "node", "express", "mongo", "jwt", "bcrypt"],
+  "author": "phytertek",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "jwt-simple": "^0.5.1",
+    "mongoose": "^4.12.1"
+  }
+}
