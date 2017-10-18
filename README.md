@@ -1,5 +1,9 @@
 # Apier
->>> Declarative component based API starter
+
+>#### é-pí-áy-ə́r
+>>#### A term coined by my wife while I was working too late one evening
+>> "Stop working on that d@m# api-er-thing and get some sleep!" - Jen
+>>> A Declarative component based API starter
 
 > The goal of this project is to create a solid baseline 
 > api server based on node, express, and mongo
