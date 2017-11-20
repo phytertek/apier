@@ -1,77 +1,116 @@
-const User = require('../database').User
-const { encode, decode } = require('./utils/jwt')
-const { sendUserError, throwError } = require('../common/errors')
-const { requireFields } = require('../common/validation')
+const { User, Token } = require('../database');
+const Assignments = require('../database').Assignments;
+const { generateUserToken, decode } = require('./utils/jwt');
+const { sendUserError, throwError } = require('../common/errors');
+const { requireFields } = require('../common/validation');
 const {
   objectFromExistingFields: existing,
   dbDocumentUpdateFromExistingFields: updateIfExists
-} = require('../common/utils')
+} = require('../common/utils');
 
 module.exports = {
   registerUser: async (req, res) => {
     try {
-      const { username, password, firstName, lastName, email } = req.body
-      requireFields({ username, password })
-      const userFromReq = existing({
-        username,
+      const { password, firstName, lastName, email } = req.body;
+      requireFields({ email, password });
+      const newUserFromReq = existing({
         password,
         firstName,
         lastName,
         email
-      })
-      const user = await new User(userFromReq)
-      const token = await encode({ _id: user._id, username })
-      user.activeTokens.push(token)
-      await user.save()
-      res.json({ token })
+      });
+      const user = new User(newUserFromReq);
+      const newUserToken = await generateUserToken(user, req);
+      const token = await new Token(newUserToken).save();
+      user.activeTokens.push(token);
+      await user.save();
+      res.json({ token });
     } catch (error) {
-      sendUserError(error, res)
+      sendUserError(error.message, res);
     }
   },
   loginUser: async (req, res) => {
     try {
-      const { username, password } = req.body
-      requireFields({ username, password })
-      const user = await User.findOne({ username })
-      if (!user) throwError('not a valid username / password combination')
-      const passwordMatch = await user.checkPassword(password)
+      const { email, password } = req.body;
+      requireFields({ email, password });
+      const user = await User.findOne({ email });
+      if (!user) throwError('not a valid email / password combination');
+      const passwordMatch = await user.checkPassword(password);
       if (!passwordMatch)
-        throwError('not a valid username / password combination')
-      const token = await encode({ _id: user._id, username })
-      user.activeTokens.push(token)
-      await user.save()
-      res.json({ token })
+        throwError('not a valid email / password combination');
+      // if (user.activeTokens.length > 0)
+      const token = await new Token(await generateUserToken(user, req)).save();
+      user.activeTokens.push(token._id);
+      await user.save();
+      console.log(token);
+      res.json({ token: token.data });
     } catch (error) {
-      sendUserError(error, res)
+      sendUserError(error, res);
     }
   },
   updateUser: async (req, res) => {
     try {
-      const token = req.get('Authorization')
-      const { _id } = await decode(token)
-      const user = await User.findOne({ _id })
-      const { username, password } = req.body
-      const updatedUser = await updateIfExists(user, {
-        username,
+      const { email, password } = req.body;
+      const updatedUser = await updateIfExists(req.unsafeUser, {
+        email,
         password
-      }).save()
-      console.log(updatedUser)
-      res.json(updatedUser)
+      }).save();
+      res.json(updatedUser);
     } catch (error) {
-      sendUserError(error, res)
+      sendUserError(error, res);
     }
   },
   logoutUser: async (req, res) => {
     try {
-      const token = req.get('Authorization')
-      const { _id } = await decode(token)
-      const user = await User.findById(_id)
-      const tokenRemoved = user.activeTokens.filter(t => t !== token)
-      user.activeTokens = tokenRemoved
-      await user.save()
-      res.json({ success: 'User successfully logged out' })
+      const token = req.get('Authorization');
+      const { _id } = await decode(token);
+      const user = await User.findById(_id);
+      const tokenRemoved = user.activeTokens.filter(t => t !== token);
+      user.activeTokens = tokenRemoved;
+      await user.save();
+      res.json({ success: 'User successfully logged out' });
     } catch (error) {
-      sendUserError(error, res)
+      sendUserError(error, res);
+    }
+  },
+  makeSystemAdmin: async (req, res) => {
+    try {
+      const admins = await User.find({
+        systemAdministrator: true
+      });
+      if (admins.length !== 0) {
+        throwError(
+          'Master system admin already exists, you cannot make a new one by this method'
+        );
+      }
+      req.unsafeUser.systemAdministrator = true;
+      await req.unsafeUser.save();
+      res.json({
+        success: `Current user ${req.unsafeUser
+          .email} has been designated a system administrator`
+      });
+    } catch (error) {
+      sendUserError(error, res);
+    }
+  },
+  addRouteAdmin: async (req, res) => {
+    try {
+      const { _id, route } = req.body;
+      requireFields({ route, _id });
+      if (
+        !(
+          req.unsafeUser.systemAdministrator ||
+          req.unsafeUser.administratorRoutes.includes(route)
+        )
+      ) {
+        throwError('No admin rights on this route');
+      }
+      const user = await User.findById(_id);
+      user.administratorRoutes.push(route);
+      await user.save();
+      res.json({ success: `${user.email} is now an admin at ${route}` });
+    } catch (error) {
+      sendUserError(error, res);
     }
   }
-}
+};

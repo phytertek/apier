@@ -6,10 +6,7 @@ module.exports = {
       },
       lastName: {
         type: String
-      },
-      email: {
-        type: String
       }
     }
   }
-}
+};

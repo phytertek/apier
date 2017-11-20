@@ -32,4 +32,4 @@ module.exports = {
     JWTSecret: process.env.JWT_SECRET || 'a super secure JWT secret',
     BcryptCost: process.env.BCRYPT_COST || 11
   }
-}
+};

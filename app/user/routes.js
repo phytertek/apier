@@ -1,14 +1,15 @@
-const { updateUser, getAllUsers } = require('./controllers')
-const { authorizeRoute } = require('../services').Auth
+const { updateUser, getAllUsers, getCurrentUser } = require('./controllers');
+const { authorizeRoute, authorizeAdminRoute } = require('../services').Auth;
 
 module.exports = {
   '/user': {
     middleware: authorizeRoute,
-    patch: {
+    post: {
       '/update': updateUser
     },
     get: {
-      '/get-all': getAllUsers
+      '/all': [authorizeAdminRoute, getAllUsers],
+      '/current': getCurrentUser
     }
   }
-}
+};
