@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 // logger
 const logger = require('../common/logger');
 // pull in configuration object
