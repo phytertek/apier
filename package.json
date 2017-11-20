@@ -2,20 +2,34 @@
   "name": "apier",
   "version": "0.1.0",
   "description": "declarative api",
-  "main": "startup.js",
+  "main": "app/index.js",
+  "engines": {
+    "node": "8.9.1"
+  },
   "scripts": {
     "start:devdb": "mongod --dbpath data",
-    "start:dev": "nodemon app/index.js"
+    "start:dev": "nodemon app/index.js",
+    "start": "node app/index.js"
   },
   "keywords": ["api", "node", "express", "mongo", "jwt", "bcrypt"],
   "author": "phytertek",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phytertek/apier"
+  },
   "license": "MIT",
   "dependencies": {
+    "agenda": "^1.0.3",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
+    "express-device": "^0.4.2",
+    "helmet": "^3.9.0",
     "jwt-simple": "^0.5.1",
-    "mongoose": "^4.12.1"
+    "mongoose": "^4.12.1",
+    "morgan": "^1.9.0",
+    "node-schedule": "^1.2.5",
+    "winston": "^2.4.0"
   }
 }
