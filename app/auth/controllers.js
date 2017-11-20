@@ -44,7 +44,6 @@ module.exports = {
       const token = await new Token(await generateUserToken(user, req)).save();
       user.activeTokens.push(token._id);
       await user.save();
-      console.log(token);
       res.json({ token: token.data });
     } catch (error) {
       sendUserError(error, res);

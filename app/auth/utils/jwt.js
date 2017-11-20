@@ -29,7 +29,6 @@ const decode = async token => {
 
 const generateUserToken = async (user, req) => {
   try {
-    console.log(req.device);
     if (!!!user) {
       throw new Error('No user to generate token for');
     }
