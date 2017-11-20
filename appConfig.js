@@ -7,6 +7,7 @@ module.exports = {
       Routes: {
         '/auth': [
           'POST /register - new user registration',
+          'POST /update - username and password update',
           'POST /login - user login',
           'GET /logout - user logout'
         ]
@@ -24,11 +25,14 @@ module.exports = {
   },
   // App Configuration
   Config: {
+    Level: process.env.NODE_ENV || 'development',
     Name: process.env.NAME || 'Apier',
     Host: process.env.HOST || 'http://localhost',
     Port: process.env.PORT || 3333,
-    DatabaseName: process.env.DBNAME || 'Apier Dev DB',
-    DatabaseURI: process.env.DB_URI || 'mongodb://localhost/apier-dev',
+    DatabaseName: process.env.DBNAME || 'Apier Dev DB @ mLab',
+    DatabaseURI:
+      process.env.DB_URI ||
+      'mongodb://student:student@ds147544.mlab.com:47544/lambda-projects', //'mongodb://localhost/apier-dev',
     JWTSecret: process.env.JWT_SECRET || 'a super secure JWT secret',
     BcryptCost: process.env.BCRYPT_COST || 11
   }
