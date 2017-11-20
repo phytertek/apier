@@ -7,6 +7,7 @@ const {
   objectFromExistingFields: existing,
   dbDocumentUpdateFromExistingFields: updateIfExists
 } = require('../common/utils');
+const logger = require('../common/logger');
 
 module.exports = {
   registerUser: async (req, res) => {
@@ -24,6 +25,7 @@ module.exports = {
       const token = await new Token(newUserToken).save();
       user.activeTokens.push(token);
       await user.save();
+      logger.info(`New User Created: ${user._id}`);
       res.json({ token });
     } catch (error) {
       sendUserError(error.message, res);
@@ -85,6 +87,10 @@ module.exports = {
       }
       req.unsafeUser.systemAdministrator = true;
       await req.unsafeUser.save();
+      logger.info(
+        '!!! <<< !!! <<< FIRST RUN SYSTEM ADMIN CREATED >>> !!! >>> !!!'
+      );
+      logger.info(`New System Admin: ${req.unsafeUser._id}`);
       res.json({
         success: `Current user ${req.unsafeUser
           .email} has been designated a system administrator`
