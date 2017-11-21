@@ -21,7 +21,8 @@ module.exports = {
         }
       ],
       systemAdministrator: {
-        type: Boolean
+        type: Boolean,
+        default: false
       },
       administratorRoutes: [
         {

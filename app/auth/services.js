@@ -18,6 +18,19 @@ module.exports = {
       sendUserError(error, res);
     }
   },
+  generateRouteList: (verbs, endpoint) => verbs.map(v => `${v}${endpoint}`),
+  setUserAdminForRoutes: (user, routes) => {
+    const newUserRoutes = [...user.administratorRoutes, ...routes];
+    user.administratorRoutes = newUserRoutes;
+    return user;
+  },
+  removeUserAdminForRoutes: (user, routes) => {
+    const newUserRoutes = user.administratorRoutes.filter(
+      r => !routes.includes(r)
+    );
+    user.administratorRoutes = newUserRoutes;
+    return user;
+  },
   authorizeRoute: async (req, res, next) => {
     try {
       req.token = req.get('Authorization');

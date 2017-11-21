@@ -1,5 +1,4 @@
 const { User, Token } = require('../database');
-const Assignments = require('../database').Assignments;
 const { generateUserToken, decode } = require('./utils/jwt');
 const { sendUserError, throwError } = require('../common/errors');
 const { requireFields } = require('../common/validation');
@@ -40,7 +39,6 @@ module.exports = {
       const passwordMatch = await user.checkPassword(password);
       if (!passwordMatch)
         throwError('not a valid email / password combination');
-      // if (user.activeTokens.length > 0)
       const token = await new Token(await generateUserToken(user, req)).save();
       user.activeTokens.push(token._id);
       await user.save();
