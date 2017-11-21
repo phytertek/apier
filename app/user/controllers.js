@@ -10,8 +10,8 @@ module.exports = {
   updateUser: async (req, res) => {
     try {
       const { firstName, lastName, email } = req.body;
-      const currentUser = req.safeUser;
-      const updatedUser = existing({ firstName, lastName, email }, currentUser);
+      const currentUser = req.unsafeUser;
+      const updatedUser = existing(currentUser, { firstName, lastName, email });
       await updatedUser.save();
       res.json({ success: true });
     } catch (error) {

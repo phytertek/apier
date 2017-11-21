@@ -1,6 +1,10 @@
 module.exports = {
   // App Components
   Components: {
+    Todo: {
+      Schema: 'Add comments here',
+      Routes: 'Add comments here'
+    },
     Auth: {
       Schema: 'authentication user schema',
       Services: 'authenticatedRoute and decodeToken',
