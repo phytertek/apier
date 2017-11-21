@@ -28,9 +28,7 @@ module.exports = {
 
   getAllUsers: async (req, res) => {
     try {
-      const users = await User.find().select(
-        'firstName lastName username email'
-      );
+      const users = await User.find().select('firstName lastName email');
       res.json(users);
     } catch (error) {
       sendUserError(error, res);
