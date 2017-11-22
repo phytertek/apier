@@ -19,10 +19,10 @@ module.exports = {
         lastName,
         email
       });
-      const user = new User(newUserFromReq);
+      const user = await new User(newUserFromReq).save();
       const newUserToken = await generateUserToken(user, req);
       const token = await new Token(newUserToken).save();
-      user.activeTokens.push(token);
+      user.activeTokens.push(token._id);
       await user.save();
       logger.info(`New User Created: ${user._id}`);
       res.json({ token });
