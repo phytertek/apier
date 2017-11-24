@@ -26,7 +26,6 @@ module.exports = {
     try {
       const _id = req.params.id;
       const { title, body, stage, complete } = req.body;
-      console.log('the completeness', complete);
       const todo = await Todo.findOne({ _id });
       if (!!!todo) throwError('Todo does not exist');
       const updatedTodo = updateIfExists(todo, {
@@ -35,7 +34,6 @@ module.exports = {
         stage,
         complete
       });
-      console.log(updatedTodo);
       await updatedTodo.save();
       res.json('Success');
     } catch (error) {
@@ -67,12 +65,14 @@ module.exports = {
   postNewTodo: async (req, res) => {
     try {
       const user = req.unsafeUser;
-      const { title, body } = req.body;
+      const { title, body, stage, complete } = req.body;
       requireFields({ title, body });
       const newTodoFromReq = existing({
+        owner: user._id,
         title,
         body,
-        owner: user._id
+        stage,
+        complete
       });
       const newTodo = await new Todo(newTodoFromReq).save();
       await setUserAdminForRoutes(
