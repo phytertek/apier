@@ -34,7 +34,7 @@ module.exports = {
     Name: process.env.NAME || 'Apier',
     Host: process.env.HOST || 'http://localhost',
     Port: process.env.PORT || 3333,
-    DatabaseName: process.env.DBNAME || 'Apier Dev DB @ mLab',
+    DatabaseName: process.env.DBNAME || 'Apier Dev DB',
     DatabaseURI: process.env.DB_URI || 'mongodb://localhost/apier-dev',
     JWTSecret: process.env.JWT_SECRET || 'a super secure JWT secret',
     BcryptCost: process.env.BCRYPT_COST || 11
