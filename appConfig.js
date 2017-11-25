@@ -31,7 +31,7 @@ module.exports = {
   // App Configuration
   Config: {
     Level: process.env.NODE_ENV || 'development',
-    Name: process.env.NAME || 'Apier',
+    Name: process.env.NAME || 'Apier Project',
     Host: process.env.HOST || 'http://localhost',
     Port: process.env.PORT || 3333,
     DatabaseName: process.env.DBNAME || 'Apier Dev DB @ mLab',
