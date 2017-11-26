@@ -11,7 +11,14 @@
     "start:dev": "nodemon app/index.js",
     "start": "node app/index.js"
   },
-  "keywords": ["api", "node", "express", "mongo", "jwt", "bcrypt"],
+  "keywords": [
+    "api",
+    "node",
+    "express",
+    "mongo",
+    "jwt",
+    "bcrypt"
+  ],
   "author": "phytertek",
   "repository": {
     "type": "git",
@@ -19,7 +26,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "agenda": "^1.0.3",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
@@ -29,7 +35,6 @@
     "jwt-simple": "^0.5.1",
     "mongoose": "^4.12.1",
     "morgan": "^1.9.0",
-    "node-schedule": "^1.2.5",
     "winston": "^2.4.0"
   }
 }
