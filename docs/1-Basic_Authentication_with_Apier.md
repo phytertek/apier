@@ -109,10 +109,6 @@ curl -X POST http://localhost:3000/auth/login
 ```
 curl -X GET http://localhost:3000m/auth/logout
 -H 'authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1YTI2ZTgxOGVjNDEyZjA5NGY2YTlhMTkiLCJlbWFpbCI6ImV4YW1wbGVAZXhhbXBsZS5jb20iLCJpYXQiOjE1MTI1MDAwNTQ2ODV9.hOxzzwCxHHAIU7-qGCknY6n9RCFNBmYlCPQRxg9-arY'
--d '{
-  "email": "example@example.com",
-  "password": "Horse Castle Desk Rain Basket"
-}'
 ```
 
 A successful response would look like
