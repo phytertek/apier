@@ -25,7 +25,7 @@ module.exports = {
       user.activeTokens.push(token._id);
       await user.save();
       logger.info(`New User Created: ${user._id}`);
-      res.json({ token });
+      res.json({ token: token.data });
     } catch (error) {
       sendUserError(error.message, res);
     }
@@ -89,8 +89,9 @@ module.exports = {
       );
       logger.info(`New System Admin: ${req.unsafeUser._id}`);
       res.json({
-        success: `Current user ${req.unsafeUser
-          .email} has been designated a system administrator`
+        success: `Current user ${
+          req.unsafeUser.email
+        } has been designated a system administrator`
       });
     } catch (error) {
       sendUserError(error, res);
