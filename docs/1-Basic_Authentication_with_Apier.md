@@ -46,7 +46,8 @@ npm run start:dev
 > settings would look like
 
 ```
-curl -X POST http://localhost:3000/auth/register  -d '{
+curl -X POST http://localhost:3000/auth/register
+-d '{
   "email": "example@example.com",
   "password": "Horse Castle Desk Rain Basket",
   "firstName": "Testy",
@@ -77,7 +78,8 @@ curl -X POST http://localhost:3000/auth/register  -d '{
 > settings would look like
 
 ```
-curl -X POST http://localhost:3000/auth/login -d '{
+curl -X POST http://localhost:3000/auth/login
+-d '{
   "email": "example@example.com",
   "password": "Horse Castle Desk Rain Basket"
 }'
