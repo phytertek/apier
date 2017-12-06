@@ -57,4 +57,4 @@ npm run start:dev
 
 # That's all there is to it! You're now running a fully scaffolded Express api server with a persistent storage connection to Mongo DB.
 
-### Stay tuned for the next tutorial, [**Basic Authentication with Apier**](/docs/1-Basic_Authentication_with_Apier.md), where we'll go over the User schema and Auth routes provided out of the box..
+### Stay tuned for the next tutorial, [**Basic Authentication with Apier**](/docs/1-Basic_Authentication_with_Apier.md), where we'll go over the User schema and Auth routes provided out of the box.
