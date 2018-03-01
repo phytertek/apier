@@ -1,4 +1,6 @@
-module.exports = (appConfig, server, express) =>
+const express = require('express')
+
+module.exports = (appConfig, server) =>
   Object.keys(appConfig.Components).forEach(key => {
     if (appConfig.Components[key].Routes) {
       const routesPath = `../../${key.toLowerCase()}/routes`

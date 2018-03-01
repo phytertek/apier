@@ -15,7 +15,7 @@ require('./middleware/cors')(server);
 require('./middleware/expressDevice')(server);
 
 // build Routes
-require('./utils/buildRoutes')(appConfig, server, express);
+require('./utils/buildRoutes')(appConfig, server);
 
 // Handle unspecified routes
 server.use((req, res) =>
@@ -25,7 +25,7 @@ server.use((req, res) =>
 );
 
 // connect server
-const { Name, Host, Port } = appConfig.Config;
+const { Host, Port } = appConfig.Config;
 
 server.listen(Port, error => {
   if (error) return logger.error(`Error starting server`, error);
